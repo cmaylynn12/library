@@ -22,6 +22,7 @@ function openForm() {
         addBookToLibrary(newBook);
 
         formContainer.hidden = true;
+        form.reset();
     })
 }
 
