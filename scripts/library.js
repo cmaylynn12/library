@@ -20,6 +20,8 @@ function openForm() {
 
         let newBook = new Book(author, title, pages, read);
         addBookToLibrary(newBook);
+
+        formContainer.hidden = true;
     })
 }
 
