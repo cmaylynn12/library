@@ -4,6 +4,7 @@ let bookCaseDown = document.querySelector('#unread');
 let formContainer = document.querySelector('#add-book-form-container');
 let form = document.querySelector('#add-book-form');
 let submitButton = document.querySelector('#submit-button');
+let bookDetails = document.querySelector('#book-details');
 
 const addBookButton = document.querySelector('#add-book-button');
 const removeBookButton = document.querySelector('#remove-book-button');
@@ -50,7 +51,7 @@ function addBookToLibrary(book) {
 function removeBookFromLibrary() {
 
     let read = myLibrary[focusBookIndex].read
-    myLibrary.splice(focusBookIndex, focusBookIndex+1);
+    delete myLibrary[focusBookIndex];
 
     let currentBook = document.getElementById(focusBookIndex);
     
@@ -63,14 +64,14 @@ function removeBookFromLibrary() {
     for (let i = 0; i < myLibrary.length; i++) {
         console.log(myLibrary[i]);
     }
+
+    bookDetails.style.display = "none";
 }
 
 removeBookButton.addEventListener('click', removeBookFromLibrary);
 
 function yell(e) {
     //console.log(e.target.id)
-    let bookDetails = document.querySelector('#book-details');
-
     // Get the button that opens the modal
 
     // Get the <span> element that closes the modal
