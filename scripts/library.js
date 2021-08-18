@@ -1,29 +1,16 @@
 let myLibrary = [];
 let bookCaseUp = document.querySelector('#read');
 let bookCaseDown = document.querySelector('#unread');
+let formContainer = document.querySelector('#add-book-form-container');
+let form = document.querySelector('#add-book-form');
+let submitButton = document.querySelector('#submit-button');
 
 const addBookButton = document.querySelector('#add-book-button');
 
-function openForm() {
+function openForm(event) {
 
-    let formContainer = document.querySelector('#add-book-form-container');
-    let form = document.querySelector('#add-book-form');
-    let submitButton = document.querySelector('#submit-button');
-
+    form.reset();
     formContainer.hidden = false;
-    submitButton.addEventListener('click', function(event) {
-
-        let author = form.elements['author'].value;
-        let title = form.elements['title'].value;
-        let pages = form.elements['no-of-pages'].value;
-        let read = form.elements['read'].value == 'true' ? true : false;
-
-        let newBook = new Book(author, title, pages, read);
-        addBookToLibrary(newBook);
-
-        formContainer.hidden = true;
-        form.reset();
-    })
 }
 
 function Book(author, title, pages, read) {
@@ -55,6 +42,10 @@ function addBookToLibrary(book) {
 
     currentBook.addEventListener('click', yell)
 
+}
+
+function removeBookFromLibrary(e) {
+    console.log(e);
 }
 
 function yell(e) {
@@ -112,6 +103,19 @@ function displayBooksInLibrary() {
 }
 
 addBookButton.addEventListener('click', openForm);
+
+submitButton.addEventListener('click', function(event) {
+    
+    let author = form.elements['author'].value;
+    let title = form.elements['title'].value;
+    let pages = form.elements['no-of-pages'].value;
+    let read = form.elements['read'].value == 'true' ? true : false;
+
+    let newBook = new Book(author, title, pages, read);
+    addBookToLibrary(newBook);
+
+    formContainer.hidden = true;
+})
 
 function start() {
 
