@@ -6,6 +6,9 @@ let form = document.querySelector('#add-book-form');
 let submitButton = document.querySelector('#submit-button');
 
 const addBookButton = document.querySelector('#add-book-button');
+const removeBookButton = document.querySelector('#remove-book-button');
+
+var focusBookIndex;
 
 function openForm(event) {
 
@@ -44,9 +47,25 @@ function addBookToLibrary(book) {
 
 }
 
-function removeBookFromLibrary(e) {
-    console.log(e);
+function removeBookFromLibrary() {
+
+    let read = myLibrary[focusBookIndex].read
+    myLibrary.splice(focusBookIndex, focusBookIndex+1);
+
+    let currentBook = document.getElementById(focusBookIndex);
+    
+    if (read == true) {
+        bookCaseUp.removeChild(currentBook);
+    } else {
+        bookCaseDown.removeChild(currentBook);
+    }
+    
+    for (let i = 0; i < myLibrary.length; i++) {
+        console.log(myLibrary[i]);
+    }
 }
+
+removeBookButton.addEventListener('click', removeBookFromLibrary);
 
 function yell(e) {
     //console.log(e.target.id)
@@ -67,6 +86,7 @@ function yell(e) {
     author.innerText = myLibrary[e.target.id].author;
     pages.innerText = myLibrary[e.target.id].pages;
     read.innerText = myLibrary[e.target.id].read;
+    focusBookIndex = e.target.id;
 
     bookDetails.style.display = "block";
 
