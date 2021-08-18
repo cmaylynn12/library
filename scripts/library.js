@@ -5,6 +5,7 @@ let formContainer = document.querySelector('#add-book-form-container');
 let form = document.querySelector('#add-book-form');
 let submitButton = document.querySelector('#submit-button');
 let bookDetails = document.querySelector('#book-details');
+let readToggle = document.querySelector('#read-toggle');
 
 const addBookButton = document.querySelector('#add-book-button');
 const removeBookButton = document.querySelector('#remove-book-button');
@@ -81,12 +82,11 @@ function yell(e) {
     let title = document.querySelector('#book-title');
     let author = document.querySelector('#book-author');
     let pages = document.querySelector('#book-pages');
-    let read = document.querySelector('#book-read');
 
     title.innerText = myLibrary[e.target.id].title;
     author.innerText = myLibrary[e.target.id].author;
     pages.innerText = myLibrary[e.target.id].pages;
-    read.innerText = myLibrary[e.target.id].read;
+    readToggle.checked = myLibrary[e.target.id].read
     focusBookIndex = e.target.id;
 
     bookDetails.style.display = "block";
@@ -136,6 +136,21 @@ submitButton.addEventListener('click', function(event) {
     addBookToLibrary(newBook);
 
     formContainer.hidden = true;
+})
+
+readToggle.addEventListener('change', function (event) {
+    
+    let currentBook = document.getElementById(focusBookIndex);
+    myLibrary[focusBookIndex].read = event.target.checked;
+    console.log(myLibrary[focusBookIndex].read);
+
+    if (myLibrary[focusBookIndex].read == true) {
+        bookCaseDown.removeChild(currentBook);
+        bookCaseUp.appendChild(currentBook);
+    } else {
+        bookCaseUp.removeChild(currentBook);
+        bookCaseDown.appendChild(currentBook);
+    }
 })
 
 function start() {
