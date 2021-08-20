@@ -28,6 +28,8 @@ function Book(author, title, pages, read) {
 
 function addBookToLibrary(book) {
 
+    const randomColor = Math.floor(Math.random()*16777215).toString(16);
+
     myLibrary.push(book);
     
     for (let i=0; i<myLibrary.length; i++) {
@@ -38,6 +40,7 @@ function addBookToLibrary(book) {
     currentBook.className = 'book';
     currentBook.innerText = book.title;
     currentBook.id = myLibrary.length-1;
+    currentBook.style.backgroundColor = '#' + randomColor;
     
     if (book.read == true) {
         bookCaseUp.appendChild(currentBook);
@@ -108,11 +111,14 @@ function yell(e) {
 function displayBooksInLibrary() {
 
     for (let i=0; i<myLibrary.length; i++) {
+        
+        const randomColor = Math.floor(Math.random()*16777215).toString(16);
 
         let currentBook = document.createElement('div');
         currentBook.className = 'book';
         currentBook.innerText = myLibrary[i].title;
         currentBook.id = i;
+        currentBook.style.backgroundColor = '#' + randomColor;
 
         if (myLibrary[i].read == true) {
             bookCaseUp.appendChild(currentBook);
@@ -127,15 +133,18 @@ addBookButton.addEventListener('click', openForm);
 
 submitButton.addEventListener('click', function(event) {
     
-    let author = form.elements['author'].value;
-    let title = form.elements['title'].value;
-    let pages = form.elements['no-of-pages'].value;
-    let read = form.elements['read'].value == 'true' ? true : false;
+    if (form.elements['author'] != null && form.elements['title'] != null && form.elements['no-of-pages'] != null) {
+        let author = form.elements['author'].value;
+        let title = form.elements['title'].value;
+        let pages = form.elements['no-of-pages'].value;
+        let read = form.elements['read'].value == 'true' ? true : false;
+    
+        let newBook = new Book(author, title, pages, read);
+        addBookToLibrary(newBook);
+    
+        formContainer.hidden = true;
+    }
 
-    let newBook = new Book(author, title, pages, read);
-    addBookToLibrary(newBook);
-
-    formContainer.hidden = true;
 })
 
 readToggle.addEventListener('change', function (event) {
